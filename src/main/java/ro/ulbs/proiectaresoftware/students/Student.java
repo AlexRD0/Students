@@ -1,5 +1,7 @@
 package ro.ulbs.proiectaresoftware.students;
 
+import java.util.List;
+
 public class Student {
     private int numarMatricol;
     private String prenume;
@@ -24,6 +26,16 @@ public class Student {
     }
     public String getFormatieDeStudiu() {
         return formatieDeStudiu;
+    }
+
+    public static boolean check(List<Student> s, Student S){
+        for(int i=0; i < s.size(); i++) {
+            Object element = s.get(i);
+            if (element == S) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

@@ -1,9 +1,13 @@
 package ro.ulbs.proiectaresoftware.students;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static javax.swing.UIManager.get;
+import static ro.ulbs.proiectaresoftware.students.Student.check;
+
 
 public class Application {
 
@@ -21,7 +25,18 @@ public class Application {
         for(Object element : s){
             System.out.println(element);
         }
-        System.out.println(get(new Student(120, "Alis", "Popa", "TI21/2")));
-        System.out.println(get(new Student(112, "Maria", "Popa", "TI21/1")));
+        Set<Student> ss = new HashSet<>(s);
+        if(ss.contains(new Student(120, "Alis", "Popa", "TI21/2"))) {
+            System.out.println(true);
+        }
+        else{
+            System.out.println(false);
+        }
+        if(ss.contains(new Student(112, "Maria", "Popa", "TI21/1"))) {
+            System.out.println(true);
+        }
+        else {
+            System.out.println(false);
+        }
     }
 }
