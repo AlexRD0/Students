@@ -1,11 +1,16 @@
 package ro.ulbs.proiectaresoftware.students;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+//import jdk.internal.org.jline.utils.InfoCmp;
+
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 
 import static javax.swing.UIManager.get;
+//import static jdk.internal.org.jline.utils.InfoCmp.Capability.lines;
 import static ro.ulbs.proiectaresoftware.students.Student.check;
 
 
@@ -22,21 +27,91 @@ public class Application {
 
 
         System.out.println("Numar matricol   prenume     nume  formatie de studiu");
-        for(Object element : s){
+        for (Object element : s) {
             System.out.println(element);
         }
         Set<Student> ss = new HashSet<>(s);
-        if(ss.contains(new Student(120, "Alis", "Popa", "TI21/2"))) {
+        if (ss.contains(new Student(120, "Alis", "Popa", "TI21/2"))) {
             System.out.println(true);
-        }
-        else{
+        } else {
             System.out.println(false);
         }
-        if(ss.contains(new Student(112, "Maria", "Popa", "TI21/1"))) {
+        if (ss.contains(new Student(112, "Maria", "Popa", "TI21/1"))) {
             System.out.println(true);
-        }
-        else {
+        } else {
             System.out.println(false);
+        }
+
+        try{
+            printTextTerminal("studenti_in.txt");
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+        try {
+            printLargerTextFile("studenti_in.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void printLargerTextFile(String fileName) throws IOException {
+        System.out.println("Using Scanner:");
+        Path path = Paths.get(fileName);
+        try (Scanner scanner = new Scanner(path)){
+            List<Student> lista = new ArrayList<>();
+            while (scanner.hasNextLine()){
+//process each line in some way
+//                System.out.println(": " + scanner.nextLine());
+                String line = scanner.nextLine();
+
+                String[] parts = line.split(",");
+
+                int nrMatricol = Integer.parseInt(parts[0]);
+                String prenume = parts[1];
+                String nume = parts[2];
+                String grupa = parts[3];
+
+                lista.add(new Student(nrMatricol, prenume, nume, grupa));
+            }
+            lista.sort(Comparator.comparing(Student::getNume));
+            try {
+                System.out.print("Writing outfile1.txt ... ");
+                writeLargerTextFile(lista, "studenti_out.txt");
+                System.out.println("done");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //tema de casa lab3
+            lista.sort(Comparator.comparing(Student::getFormatieDeStudiu));
+            lista.sort(Comparator.comparing(Student::getNume));
+            try {
+                System.out.print("Writing outfile1.txt ... ");
+                writeLargerTextFile(lista, "studenti_out_sorted.txt");
+                System.out.println("done");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    static void printTextTerminal(String fileName) throws IOException {
+        System.out.println("Using Scanner:");
+        Path path = Paths.get(fileName);
+        try (Scanner scanner = new Scanner(path)){
+            while (scanner.hasNextLine()){
+//process each line in some way
+                System.out.println(": " + scanner.nextLine());
+            }
+        }
+    }
+
+    static void writeLargerTextFile(List<Student> lines, String fileName) throws IOException {
+        Path path = Paths.get(fileName);
+        try (BufferedWriter writer = Files.newBufferedWriter(path)){
+            for(Student line : lines){
+                writer.write(String.valueOf(line));
+                writer.newLine();
+            }
         }
     }
 }
