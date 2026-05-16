@@ -1,6 +1,7 @@
 package ro.ulbs.proiectaresoftware.students;
 
 import java.util.List;
+import java.util.Map;
 
 public class Student {
     private int numarMatricol;
@@ -44,6 +45,17 @@ public class Student {
             }
         }
         return false;
+    }
+
+    public static double gasesteNota(String prenume, String nume, Map<String, Student> tineri){
+        String key = prenume + nume;
+        Student student = tineri.get(key);
+
+        if(student == null){
+            return 0.0;
+        }
+
+        return student.getNota();
     }
 
     @Override

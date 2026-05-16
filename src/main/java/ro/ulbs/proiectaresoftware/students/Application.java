@@ -71,6 +71,18 @@ public class Application {
             System.out.println(student);
         }
 
+        HashMap<String, Student> tineri = new HashMap<>();
+        for (Student student : studenti.values()) {
+            String key = student.getPrenume() + " " + student.getNume();
+            tineri.put(key, student);
+        }
+
+        double notaM = gasesteNota("Bianca", "Popescu", tineri);
+        double notaN = gasesteNota("Ioan", "Popa", tineri);
+
+        System.out.println("Nota Bianca Popescu: " + notaM);
+        System.out.println("Nota Ioan Popa: " + notaN);
+
     }
 
     static void printLargerTextFile(String fileName) throws IOException {
@@ -160,6 +172,17 @@ public class Application {
                 }
             }
         }
+    }
+
+    static double gasesteNota(String prenume, String nume, Map<String, Student> map) {
+        String key = prenume + " " + nume;
+        Student student = map.get(key);
+
+        if (student == null) {
+            return 0.0;
+        }
+
+        return student.getNota();
     }
 
     static void writeLargerTextFile(List<Student> lines, String fileName) throws IOException {
