@@ -52,6 +52,25 @@ public class Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        HashMap<Integer, Student> studenti = new HashMap<>();
+        try{
+            printToHashMap("studenti_in.txt", studenti);
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+
+        try{
+            addNota("note_anon.txt", studenti);
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+        System.out.println("Numar matricol   prenume     nume  formatie de studiu    nota");
+        for (Student student : studenti.values()) {
+            System.out.println(student);
+        }
+
     }
 
     static void printLargerTextFile(String fileName) throws IOException {
@@ -101,6 +120,44 @@ public class Application {
             while (scanner.hasNextLine()){
 //process each line in some way
                 System.out.println(": " + scanner.nextLine());
+            }
+        }
+    }
+
+    static void printToHashMap(String fileName, HashMap<Integer, Student> map) throws IOException {
+        System.out.println("Lista HashMap:");
+        Path path = Paths.get(fileName);
+        try (Scanner scanner = new Scanner(path)){
+            while (scanner.hasNextLine()){
+                String line = scanner.nextLine();
+                String[] parts = line.split(",");
+
+                int nrMatricol = Integer.parseInt(parts[0]);
+                String prenume = parts[1];
+                String nume = parts[2];
+                String grupa = parts[3];
+
+                Student student = new Student(nrMatricol, prenume, nume, grupa);
+                map.put(nrMatricol, student);
+            }
+        }
+    }
+
+    static void addNota(String fileName, HashMap<Integer, Student> map) throws IOException {
+        System.out.println("Adauga note:");
+        Path path = Paths.get(fileName);
+        try (Scanner scanner = new Scanner(path)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(",");
+
+                int nrMatricol = Integer.parseInt(parts[0]);
+                double nota = Double.parseDouble(parts[1]);
+
+                Student student =  map.get(nrMatricol);
+                if (student != null) {
+                    student.setNota(nota);
+                }
             }
         }
     }

@@ -7,12 +7,17 @@ public class Student {
     private String prenume;
     private String nume;
     private String formatieDeStudiu;
+    private double nota;
 
     public Student(int numarMatricol, String prenume, String nume, String formatieDeStudiu) {
         this.numarMatricol = numarMatricol;
         this.prenume = prenume;
         this.nume = nume;
         this.formatieDeStudiu = formatieDeStudiu;
+    }
+
+    public void setNota(double nota) {
+        this.nota = nota;
     }
 
     public int getNumarMatricol() {
@@ -27,6 +32,9 @@ public class Student {
     public String getFormatieDeStudiu() {
         return formatieDeStudiu;
     }
+    public double getNota() {
+        return nota;
+    }
 
     public static boolean check(List<Student> s, Student S){
         for(int i=0; i < s.size(); i++) {
@@ -39,7 +47,17 @@ public class Student {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
     public String toString() {
-        return String.format("%7d %14s %12s %8s", numarMatricol, prenume, nume, formatieDeStudiu);
+        return String.format("%7d %14s %12s %12s %12.2f", numarMatricol, prenume, nume, formatieDeStudiu, nota);
     }
 }
