@@ -17,6 +17,14 @@ public class Student {
         this.formatieDeStudiu = formatieDeStudiu;
     }
 
+    public Student(int numarMatricol, String prenume, String nume, String formatieDeStudiu, double nota) {
+        this.numarMatricol = numarMatricol;
+        this.prenume = prenume;
+        this.nume = nume;
+        this.formatieDeStudiu = formatieDeStudiu;
+        this.nota = nota;
+    }
+
     public void setNota(double nota) {
         this.nota = nota;
     }
@@ -45,17 +53,6 @@ public class Student {
             }
         }
         return false;
-    }
-
-    public static double gasesteNota(String prenume, String nume, Map<String, Student> tineri){
-        String key = prenume + nume;
-        Student student = tineri.get(key);
-
-        if(student == null){
-            return 0.0;
-        }
-
-        return student.getNota();
     }
 
     @Override

@@ -17,7 +17,7 @@ import static ro.ulbs.proiectaresoftware.students.Student.check;
 public class Application {
 
 
-    public static void main() {
+    public static void main(String[] args) {
         List<Student> s = new ArrayList<Student>();
         s.add(new Student(112, "Ioan", "Popa", "TI21/1"));
         s.add(new Student(112, "Maria", "Oprea", "TI21/1"));
@@ -83,6 +83,19 @@ public class Application {
         System.out.println("Nota Bianca Popescu: " + notaM);
         System.out.println("Nota Ioan Popa: " + notaN);
 
+        //laborator 5
+
+        List<Student> bursieri = new ArrayList<>();
+        bursieri.add( new StudentBursier(1025,"Andrei","Popa","ISM141/2", 8.70, 725.50));
+        bursieri.add( new StudentBursier(1024,"Ioan","Mihalcea","ISM141/1", 9.80, 801.10));
+        bursieri.add( new StudentBursier(1026,"Anamaria","Prodan","TI131/1", 8.90, 745.50));
+        bursieri.add( new StudentBursier(1029,"Bianca","Popescu","TI131/1,", 9.10, 780.80));
+
+        try{
+            writeLargerTextFile(bursieri, "bursieri_out.txt");
+        } catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     static void printLargerTextFile(String fileName) throws IOException {
