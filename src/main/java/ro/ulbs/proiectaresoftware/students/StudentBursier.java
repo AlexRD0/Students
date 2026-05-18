@@ -8,6 +8,10 @@ public class StudentBursier extends Student{
         this.cuantumBursa = cuantumBursa;
     }
 
+    public double getCuantumBursa() {
+        return cuantumBursa;
+    }
+
     @Override
     public int hashCode() {
         return super.hashCode();
@@ -21,4 +25,5 @@ public class StudentBursier extends Student{
     public String toString() {
         return super.toString() + String.format("%12.2f", cuantumBursa);
     }
+
 }

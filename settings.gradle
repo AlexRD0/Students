@@ -1,1 +1,3 @@
 rootProject.name = 'Students'
+include 'src:test:java'
+include 'src:test'
