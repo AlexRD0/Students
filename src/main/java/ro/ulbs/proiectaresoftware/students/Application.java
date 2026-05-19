@@ -30,6 +30,21 @@ public class Application {
         for (Object element : s) {
             System.out.println(element);
         }
+
+        int mijloc = (s.size() + 1) / 2;
+        for (int i = 0; i < s.size(); i++) {
+            if (i < mijloc) {
+                mutaStudent(s, s.get(i), "TI21/1");
+            } else {
+                mutaStudent(s, s.get(i), "TI21/2");
+            }
+        }
+
+        System.out.println("Dupa impartirea in doua formatii:");
+        for (Student student : s) {
+            System.out.println(student);
+        }
+
         Set<Student> ss = new HashSet<>(s);
         if (ss.contains(new Student(120, "Alis", "Popa", "TI21/2"))) {
             System.out.println(true);
@@ -179,9 +194,16 @@ public class Application {
                 int nrMatricol = Integer.parseInt(parts[0]);
                 double nota = Double.parseDouble(parts[1]);
 
-                Student student =  map.get(nrMatricol);
+                Student student = map.get(nrMatricol);
                 if (student != null) {
-                    student.setNota(nota);
+                    Student studentCuNota = new Student(
+                            student.getNumarMatricol(),
+                            student.getPrenume(),
+                            student.getNume(),
+                            student.getFormatieDeStudiu(),
+                            nota
+                    );
+                    map.put(nrMatricol, studentCuNota);
                 }
             }
         }
@@ -206,5 +228,29 @@ public class Application {
                 writer.newLine();
             }
         }
+    }
+
+    static void mutaStudent(List<Student> s, Student student, String grupa) {
+        int poz = -1;
+        for (int i = 0; i < s.size(); i++) {
+            if (s.get(i) == student) {
+                poz = i;
+                break;
+            }
+        }
+
+        if (poz == -1) {
+            return;
+        }
+
+        Student nou = new Student(
+                student.getNumarMatricol(),
+                student.getPrenume(),
+                student.getNume(),
+                grupa,
+                student.getNota()
+        );
+
+        s.set(poz, nou);
     }
 }

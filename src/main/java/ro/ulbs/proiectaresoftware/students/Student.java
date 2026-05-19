@@ -2,19 +2,21 @@ package ro.ulbs.proiectaresoftware.students;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Student {
-    private int numarMatricol;
-    private String prenume;
-    private String nume;
-    private String formatieDeStudiu;
-    private double nota;
+    private final int numarMatricol;
+    private final String prenume;
+    private final String nume;
+    private final String formatieDeStudiu;
+    private final double nota;
 
     public Student(int numarMatricol, String prenume, String nume, String formatieDeStudiu) {
         this.numarMatricol = numarMatricol;
         this.prenume = prenume;
         this.nume = nume;
         this.formatieDeStudiu = formatieDeStudiu;
+        this.nota = 0.0;
     }
 
     public Student(int numarMatricol, String prenume, String nume, String formatieDeStudiu, double nota) {
@@ -22,10 +24,6 @@ public class Student {
         this.prenume = prenume;
         this.nume = nume;
         this.formatieDeStudiu = formatieDeStudiu;
-        this.nota = nota;
-    }
-
-    public void setNota(double nota) {
         this.nota = nota;
     }
 
@@ -57,12 +55,20 @@ public class Student {
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Student student)) {
+            return false;
+        }
+
+        return numarMatricol == student.numarMatricol;
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(numarMatricol);
     }
 
     @Override
